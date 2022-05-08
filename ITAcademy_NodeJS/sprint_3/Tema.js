@@ -1,40 +1,35 @@
-const events = require('events');
-const emitter = new events.EventEmitter();
+const EventEmitter = require('events')
+// const emitter = new EventEmitter()
 
-class Tema {
+class Tema extends EventEmitter {
+// class Tema {
     constructor(name) {
+        super()
         this.name = name;
-        this.missatges = [];
         this.subscribers = [];
-        this.emitter = emitter.emit(this.afegirMissatge)
-        // emitter.on(this.afegirMissatge, () => {
-        //     console.log(
-        //     `NEW MESSAGE ALERT: on TEMA: "${this.name}"
-        //     Sent to all subscribers of this tema: ${this.getSubscribers()} `);
-        // })
-        emitter.on(this.afegirMissatge, () => {
-            this.alertMessage();
-        })
-        
+        this.missatges = [];
+        this.emitter = new EventEmitter()
     }
 
-    afegirMissatge (usuari, missatge){
+    addSubscriber(newSubscriber) {
+        this.subscribers.push(newSubscriber);
+    }
+
+    afegirMissatge(missatge){
         this.missatges.push(missatge);
-        // make missatges an object with user and message?
+        this.emitter.emit('newMessage')
     }
 
-    getSubscribersList(){
-        this.subscribers.forEach(subscriber => {
-            console.log(subscriber.name)
-        });
-    }
+    // newMessage(){
+    //     console.log(`New message added to ${this.name}`)
+    // }
 
-    alertMessage(){
-        console.log(
-            `NEW MESSAGE ALERT: on TEMA: "${this.name}"
-            Sent to all subscribers of this tema: 
-                ${this.getSubscribersList()} `);
-        }
+    // notifyAllSubscribers(){     
+    //     emitter.on("new-message", (missatge) => {
+    //     // console.log("send the message to all subscribers")
+    //     this.subscribers.forEach(subscriber => subscriber.notify(missatge))
+    //     })
+    // }
 }
-// 
+
 module.exports = Tema;
