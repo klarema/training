@@ -8,7 +8,7 @@ index.js and class files Marcador, Joc, Jugador
 ####  Nivel 3 Observer (events)
 index.js and class files Tema, Usuari 
 ### SPRINT 3, PATTERNS:  2
-#### Nivel 1 Midleware
+#### Nivel 1 Middleware
 index.js and class file Middleware, params json file. Note: Modify json file path if it is located in a different directory
 ####  Nivel 2 Decorator
 index.js, class Products, calc functions file, conversion.json 
