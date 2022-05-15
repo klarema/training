@@ -166,7 +166,6 @@ db.client.insertMany([
       calle: "123 Rocafell 3B",
       CP: "05514",
       area: { provincia: "Gerona", localidad: "Palafrugell" },
-      botiga_id: 1,
     },
   },
   {
@@ -175,7 +174,6 @@ db.client.insertMany([
       calle: "Palltel Cases 14-16",
       CP: "05478",
       area: { provincia: "Gerona", localidad: "Llivia" },
-      botiga_id: 1,
     },
   },
 
@@ -185,7 +183,6 @@ db.client.insertMany([
       calle: "Palltel Cases 14-16",
       CP: "05478",
       area: { provincia: "Gerona", localidad: "Palafrugell" },
-      botiga_id: 1,
     },
   },
   {
@@ -194,7 +191,6 @@ db.client.insertMany([
       calle: "88C Fabra Pau 234",
       CP: "05515",
       area: { provincia: "Tarragona", localidad: "Tortosa" },
-      botiga_id: 1,
     },
   },
   {
@@ -203,7 +199,6 @@ db.client.insertMany([
       calle: "Palltel Cases 14-16",
       CP: "05478",
       area: { provincia: "Tarragona", localidad: "Cambrils" },
-      botiga_id: 1,
     },
   },
 ]);
