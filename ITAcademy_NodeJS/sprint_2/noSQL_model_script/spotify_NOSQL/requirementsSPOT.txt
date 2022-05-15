@@ -6,23 +6,22 @@ usuari free i usuari premium.
 De cada usuari guardem un identificador únic, email, password, nom d'usuari, data de naixement, sexe, país, codi postal.
 
 
-Els usuaris premium realitzen subscripcions. 
+Els usuaris premium realitzen 
+Subscripcions. 
 Les dades necessàries que caldrà guardar per a cada subscripció són: 
 data d'inici de la subscripció, data de renovació del servei i una forma de pagament, 
 que pot ser mitjançant targeta de crèdit o PayPal.
-
-
-De les targetes de crèdit guardem 
-el número de targeta, 
-mes i any de caducitat i 
-el codi de seguretat. 
+	De les targetes de crèdit guardem 
+	el número de targeta, 
+	mes i any de caducitat i 
+	el codi de seguretat. 
 Dels usuaris que paguen amb PayPal guardem 
-el nom d'usuari de PayPal. 
+	el nom d'usuari de PayPal. 
 Ens interessa portar un registre de tots els pagaments que un usuari premium ha anat realitzant durant el període que està subscrit. 
 De cada pagament es guarda 
-la data, 
-un número d'ordre (que és únic) i 
-un total.
+	la data, 
+	un número d'ordre (que és únic) i 
+	un total.
 
 Un usuari pot crear moltes playlists. 
 De cada playlist guardem 
