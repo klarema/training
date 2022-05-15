@@ -1,3 +1,4 @@
+db = connect("mongodb://localhost/pizza_CMC");
 db.area.insertMany([
   {
     provincia: "Gerona",
