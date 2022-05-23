@@ -3,7 +3,7 @@ var Usuari = require("./Usuari");
 
 // crear diferents Temes, add listeners.
 var climateChange = new Tema("Climate Change");
-var PokemonLoremIpsum = new Tema("Pokemon Lorem Ipsum");
+var pokemonLoremIpsum = new Tema("Pokemon Lorem Ipsum");
 
 // objectes Usuari
 var karen = new Usuari("Karen");
@@ -13,7 +13,7 @@ var michelle = new Usuari("Michelle");
 // subscribe usuari to tema
 climateChange.addSubscriber(karen);
 climateChange.addSubscriber(luis);
-PokemonLoremIpsum.addSubscriber(michelle);
+pokemonLoremIpsum.addSubscriber(michelle);
 
 // missatges
 var missatge_1 = "The weather is very bad";
@@ -22,5 +22,5 @@ var missatge_3 = "Dont use plastic";
 
 // add messages, and trigger events
 climateChange.afegirMissatge(missatge_1);
-PokemonLoremIpsum.afegirMissatge(missatge_2);
+pokemonLoremIpsum.afegirMissatge(missatge_2);
 climateChange.afegirMissatge(missatge_3);
