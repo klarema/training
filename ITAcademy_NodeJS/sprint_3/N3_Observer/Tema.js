@@ -1,35 +1,27 @@
-const EventEmitter = require('events')
-// const emitter = new EventEmitter()
+const EventEmitter = require("events");
 
 class Tema extends EventEmitter {
-// class Tema {
-    constructor(name) {
-        super()
-        this.name = name;
-        this.subscribers = [];
-        this.missatges = [];
-        this.emitter = new EventEmitter()
-    }
+  constructor(name) {
+    super();
+    this.name = name;
+    this.subscribers = [];
+    this.missatges = [];
+    this.emitter = new EventEmitter();
+  }
 
-    addSubscriber(newSubscriber) {
-        this.subscribers.push(newSubscriber);
-    }
+  addSubscriber(newSubscriber) {
+    this.subscribers.push(newSubscriber);
+  }
 
-    afegirMissatge(missatge){
-        this.missatges.push(missatge);
-        this.emitter.emit('newMessage')
-    }
+  afegirMissatge(missatge) {
+    this.missatges.push(missatge);
+    this.emitter.emit("newMessage", this.notifyAllSubscribers());
+  }
 
-    // newMessage(){
-    //     console.log(`New message added to ${this.name}`)
-    // }
-
-    // notifyAllSubscribers(){     
-    //     emitter.on("new-message", (missatge) => {
-    //     // console.log("send the message to all subscribers")
-    //     this.subscribers.forEach(subscriber => subscriber.notify(missatge))
-    //     })
-    // }
+  notifyAllSubscribers() {
+    console.log(`Notify all subscribers to ${this.name}.`);
+    this.subscribers.forEach((subscriber) => subscriber.notify());
+  }
 }
 
 module.exports = Tema;
