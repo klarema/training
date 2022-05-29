@@ -152,7 +152,7 @@ function decryptFile(encryptedHexFile) {
   }
 }
 
-// encode, encrypt and decrypt tests: see
+// encode, encrypt and decrypt tests: see https://github.com/klarema/training/blob/main/ITAcademy_NodeJS/sprint_1/node_basics/README.md
 // encodedFile(myFitxer);
 // encryptFile(encodedHexFile, encodedBase64File);
 // decryptFile(encryptedHexFile);
