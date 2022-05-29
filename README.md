@@ -13,4 +13,4 @@ index.js and class file Middleware, params json file. Note: Modify json file pat
 ####  Nivel 2 Decorator
 index.js, class Products, calc functions file, conversion.json 
 ####  Nivel 3 Publisher 
-TO-DO
+requires npm install - rabbitmq 
