@@ -1,8 +1,9 @@
 DROP SCHEMA IF EXISTS `youtube` ;
 CREATE SCHEMA `youtube` ;
+USE `youtube` ;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`Usuari` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `usuari_Id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
   `nom_usuari` VARCHAR(45) NULL,
@@ -15,11 +16,11 @@ CREATE TABLE IF NOT EXISTS `youtube`.`Usuari` (
   `canalDescription` VARCHAR(300) NULL,
   `canalCreateDate` DATE NULL,
   `canalSubscribers` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`usuari_Id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`Video` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `video_Id` INT NOT NULL AUTO_INCREMENT,
   `titol` VARCHAR(45) NULL,
   `description` VARCHAR(300) NULL,
   `size` INT NULL,
@@ -32,66 +33,74 @@ CREATE TABLE IF NOT EXISTS `youtube`.`Video` (
   `estat` VARCHAR(45) NULL,
   `Usuari_id` INT NOT NULL,
   `published_date` DATETIME NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`video_Id`),
   INDEX `fk_Video_Usuari1_idx` (`Usuari_id` ASC) VISIBLE,
   CONSTRAINT `fk_Video_Usuari1`
     FOREIGN KEY (`Usuari_id`)
-    REFERENCES `youtube`.`Usuari` (`id`)
+    REFERENCES `youtube`.`Usuari` (`usuari_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`label` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `label_Id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`label_Id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`comentari` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comentari` varchar(500) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
-  `Video_id` int(11) NOT NULL,
-  `Usuari_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_comentari_Video1_idx` (`Video_id`),
-  KEY `fk_comentari_Usuari1_idx` (`Usuari_id`),
-  CONSTRAINT `fk_comentari_Usuari1` FOREIGN KEY (`Usuari_id`) REFERENCES `usuari` (`id`),
-  CONSTRAINT `fk_comentari_Video1` FOREIGN KEY (`Video_id`) REFERENCES `video` (`id`)
-) ENGINE=InnoDB;
+  `commentari_Id` INT NOT NULL AUTO_INCREMENT,
+  `comentari` VARCHAR(500) NULL,
+  `date` DATETIME NULL,
+  `Video_id` INT NOT NULL,
+  `Usuari_id` INT NOT NULL,
+  PRIMARY KEY (`commentari_Id`),
+  INDEX `fk_comentari_Video1_idx` (`Video_id` ASC) VISIBLE,
+  INDEX `fk_comentari_Usuari1_idx` (`Usuari_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comentari_Video1`
+    FOREIGN KEY (`Video_id`)
+    REFERENCES `youtube`.`Video` (`video_Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comentari_Usuari1`
+    FOREIGN KEY (`Usuari_id`)
+    REFERENCES `youtube`.`Usuari` (`usuari_Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`videoLikesOrDislikes` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `videoLikesDislike_Id` INT NOT NULL AUTO_INCREMENT,
   `videoLikeOrDislike` VARCHAR(1) NULL,
   `dateAdded` DATETIME NULL,
   `Usuari_id` INT NOT NULL,
   `Video_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`videoLikesDislike_Id`),
   INDEX `fk_registre_likes_dislikes_Usuari1_idx` (`Usuari_id` ASC) VISIBLE,
   INDEX `fk_registre_likes_dislikes_Video1_idx` (`Video_id` ASC) VISIBLE,
   CONSTRAINT `fk_registre_likes_dislikes_Usuari1`
     FOREIGN KEY (`Usuari_id`)
-    REFERENCES `youtube`.`Usuari` (`id`)
+    REFERENCES `youtube`.`Usuari` (`usuari_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_registre_likes_dislikes_Video1`
     FOREIGN KEY (`Video_id`)
-    REFERENCES `youtube`.`Video` (`id`)
+    REFERENCES `youtube`.`Video` (`video_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`playlist` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `playlist_Id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `date` DATETIME NULL,
   `estat` VARCHAR(45) NULL,
   `Usuari_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`playlist_Id`),
   INDEX `fk_playlist_Usuari1_idx` (`Usuari_id` ASC) VISIBLE,
   CONSTRAINT `fk_playlist_Usuari1`
     FOREIGN KEY (`Usuari_id`)
-    REFERENCES `youtube`.`Usuari` (`id`)
+    REFERENCES `youtube`.`Usuari` (`usuari_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -104,69 +113,54 @@ CREATE TABLE IF NOT EXISTS `youtube`.`videoLabels` (
   INDEX `fk_label_has_Video_label1_idx` (`label_id` ASC) VISIBLE,
   CONSTRAINT `fk_label_has_Video_label1`
     FOREIGN KEY (`label_id`)
-    REFERENCES `youtube`.`label` (`id`)
+    REFERENCES `youtube`.`label` (`label_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_label_has_Video_Video1`
     FOREIGN KEY (`Video_id`)
-    REFERENCES `youtube`.`Video` (`id`)
+    REFERENCES `youtube`.`Video` (`video_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`VideoPlaylists` (
-  `playlist_id` INT NOT NULL,
-  `Video_id` INT NOT NULL,
-  PRIMARY KEY (`playlist_id`, `Video_id`),
-  INDEX `fk_playlist_has_Video_Video1_idx` (`Video_id` ASC) VISIBLE,
-  INDEX `fk_playlist_has_Video_playlist1_idx` (`playlist_id` ASC) VISIBLE,
-  CONSTRAINT `fk_playlist_has_Video_playlist1`
-    FOREIGN KEY (`playlist_id`)
-    REFERENCES `youtube`.`playlist` (`id`)
+  `playlist_playlist_Id` INT NOT NULL,
+  `Video_video_Id` INT NOT NULL,
+  INDEX `fk_VideoPlaylists_playlist1_idx` (`playlist_playlist_Id` ASC) VISIBLE,
+  INDEX `fk_VideoPlaylists_Video1_idx` (`Video_video_Id` ASC) VISIBLE,
+  CONSTRAINT `fk_VideoPlaylists_playlist1`
+    FOREIGN KEY (`playlist_playlist_Id`)
+    REFERENCES `youtube`.`playlist` (`playlist_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_playlist_has_Video_Video1`
-    FOREIGN KEY (`Video_id`)
-    REFERENCES `youtube`.`Video` (`id`)
+  CONSTRAINT `fk_VideoPlaylists_Video1`
+    FOREIGN KEY (`Video_video_Id`)
+    REFERENCES `youtube`.`Video` (`video_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `youtube`.`comentariLikesDislikes` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `commentaryLikes_Id` INT NOT NULL AUTO_INCREMENT,
   `comentLikeOrDislike` VARCHAR(1) NULL,
   `dateAdded` DATETIME NULL,
   `Usuari_id` INT NOT NULL,
   `comentari_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`commentaryLikes_Id`),
   INDEX `fk_comentariLikesDislikes_Usuari1_idx` (`Usuari_id` ASC) VISIBLE,
   INDEX `fk_comentariLikesDislikes_comentari1_idx` (`comentari_id` ASC) VISIBLE,
   CONSTRAINT `fk_comentariLikesDislikes_Usuari1`
     FOREIGN KEY (`Usuari_id`)
-    REFERENCES `youtube`.`Usuari` (`id`)
+    REFERENCES `youtube`.`Usuari` (`usuari_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comentariLikesDislikes_comentari1`
     FOREIGN KEY (`comentari_id`)
-    REFERENCES `youtube`.`comentari` (`id`)
+    REFERENCES `youtube`.`comentari` (`commentari_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `youtube`;
-
-DELIMITER $$
-USE `youtube`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `youtube`.`Video_AFTER_INSERT` AFTER INSERT ON `Video` FOR EACH ROW
-BEGIN
-
-END
-$$
-
-DELIMITER ;
-
-
-USE youtube;
 -- labels
 INSERT INTO label (nom) VALUES ('modern'), ('humour'), ('clasic'), ('news');
 -- users
@@ -190,83 +184,86 @@ VALUES
 ('Red Skies', 'very classic film clip', 1, 'classic', '60', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'privat', 1, '2021-10-23'),
 ('Other', 'an other very different film clip', 2, 'comedy', '100', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'public', 1, '2021-11-05'),
 ('Falsy', 'amother very news clip', 1, 'news', '30', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'public', 1, '2021-12-17');
+
 -- add like dislikes
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-01-02 13:00:30', 2, 1);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 1;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 1;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-01-02 13:00:30', 2, 2);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 2;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 2;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-01-02 13:00:30', 2, 5);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 5;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 5;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-01-02 13:00:30', 3, 1);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 1;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 1;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('D', '2022-01-02 13:00:30', 3, 5);
-UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video.id= 5;
+UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video_id= 5;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-02 17:00:30', 4, 9);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 9;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 9;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-02 18:00:30', 4, 8);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 8;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 8;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-02 18:00:30', 3, 8);
-UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video.id= 8;
+UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video_id= 8;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-12 17:00:30', 2, 9);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 9;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 9;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-12 17:00:30', 3, 9);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 9;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 9;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-12 17:00:30', 5, 9);
-UPDATE Video SET likes_count = likes_count + 1 WHERE Video.id= 9;
+UPDATE Video SET likes_count = likes_count + 1 WHERE Video_id= 9;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-02 18:00:30', 4, 8);
-UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video.id= 8;
+UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video_id= 8;
 INSERT INTO videolikesordislikes (videoLikeOrDislike, dateAdded, Usuari_id, Video_id)
 VALUES ('L', '2022-03-02 18:00:30', 5, 8);
-UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video.id= 8;
+UPDATE Video SET dislike_count = dislike_count + 1 WHERE Video_id= 8;
 -- add comments 
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('I like this video a lot. ', '2022-03-02 18:10:30', 9, 1);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('This is the best one I have seen ever. ', '2022-03-12 18:10:30', 9, 2);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('Like it even more today. ', '2022-03-18 18:50:30', 9, 3);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('This is the best. ', '2022-03-19 18:10:30', 1, 4);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('It is good. ', '2022-03-19 18:50:30', 1, 1);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('This is the worst. ', '2022-03-19 20:10:30', 1, 2);
-
-INSERT INTO comentari (comentari, date, Video_id, Usuari_id)
-VALUES('It is not good. ', '2022-03-19 21:10:30', 1, 3);
-
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('I like this video a lot. ', '2022-03-02 18:10:30', 9, 2);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 1, 2);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('This is the best one I have seen ever. ', '2022-03-12 18:10:30', 9, 3);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 2, 3);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('Like it even more today. ', '2022-03-18 18:50:30', 9, 2);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 3, 2);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('This is the best. ', '2022-03-19 18:10:30', 1, 5);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 4, 5);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('It is good. ', '2022-03-19 18:50:30', 1, 4);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 5, 4);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('This is the worst. ', '2022-03-19 20:10:30', 1, 4);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 6, 4);
+INSERT INTO comentari (comentari, date, Video_id, usuari_id)
+VALUES('It is not good. ', '2022-03-19 21:10:30', 1, 2);
+-- INSERT INTO comentari_has_usuari (id,comentari_id,Usuari_id) VALUES(LAST_INSERT_ID(), 7, 2);
 -- playlist
 INSERT INTO playlist (nom, date, estat, Usuari_id)
 VALUES
 ('Top Two', '2022-01-18 18:20:30', 'public', 2),
 ('Private list', '2022-01-18 19:10:30', 'private', 2),
 ('Favourites', '2022-02-19 14:20:30', 'public', 4);
--- comment likes dislikes 
 INSERT INTO comentarilikesdislikes(comentLikeOrDislike,dateAdded,Usuari_id,comentari_id)
 VALUES
 ('L', '2022-03-18 18:20:30', 3, 1),
 ('D', '2022-04-11 19:10:30', 2, 2);
 -- playlist and video table
-INSERT INTO VideoPlaylists(playlist_id,Video_id)
-VALUES(1, 1),(2, 10), (3, 4), (1, 10), (2, 9), (3, 5), (1, 5), (2, 2), (3, 7);
--- video and labels
-INSERT INTO videolabels(label_id,Video_id)
+INSERT INTO `youtube`.`videoplaylists`
+(`playlist_playlist_Id`,`Video_video_Id`)
 VALUES
-(1,2),(2,1),(3,3),(5,4),(6,1),(7,3),(9,4);
+(1,1);
+INSERT INTO `youtube`.`videolabels`(`label_id`,`Video_id`)
+VALUES (1,2);
+
+
+
