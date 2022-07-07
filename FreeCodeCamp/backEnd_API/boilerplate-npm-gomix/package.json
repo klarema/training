@@ -1,6 +1,10 @@
 {
 	"name": "fcc-learn-npm-package-json",
     "author": "Clare McCarron",
+    "description": "a short, but informative description about your project belongs here",
+    "keywords": [ "freecodecamp", "training", "backend" ],
+    "license": "MIT",
+    "version": "1.0.0",
 	"dependencies": {
 		"express": "^4.14.0"
 	},
