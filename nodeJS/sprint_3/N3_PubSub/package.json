@@ -1,0 +1,14 @@
+{
+  "name": "n3_pubsub",
+  "version": "1.0.0",
+  "description": "basic pub-sub example",
+  "main": "Pub.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "clare",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "0.8.0"
+  }
+}
