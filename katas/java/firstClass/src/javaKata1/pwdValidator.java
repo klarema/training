@@ -4,17 +4,20 @@ import java.util.Scanner;
 
 public class pwdValidator {
     public static void main(String args[]){
-        String[] daysOfWeek = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
-        System.out.println("enter a number from 1 - 7");
-        Scanner scanner = new Scanner(System.in);
-        int daySelected = scanner.nextInt();
-        // error handling like InputMismatchexception (enter j)
-        if(daySelected > 0 && daySelected < 8){
-            System.out.println("you selected: " + daysOfWeek[daySelected-1]);
+        public static void main(String args[]){
+            String userName = "myname";
+            String oldPwd = "pa$$word";
+            String pwd1 = "PAsswo??";
+            String pwd2 = "mynamepass";
+            String pwd3 = "pa$$word";
+            boolean goodPassword = true;
+
+            if(pwd1.length()<8 || );
+            goodPassword = false;
+            // search for uppercase
+            // search for lowercase
+            // search for substring - username
+            // search for match with old password
         }
-        else{
-            System.out.println("invalid number selected.");
-        }
-        scanner.close();
     }
 }
