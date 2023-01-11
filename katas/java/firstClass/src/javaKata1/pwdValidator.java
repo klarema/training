@@ -20,4 +20,9 @@ public class pwdValidator {
 
         }
 
+        if(goodPassword){
+            System.out.println("Valid password. ");
+    }
+    }
+
 }
