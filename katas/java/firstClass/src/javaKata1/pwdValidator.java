@@ -11,18 +11,21 @@ public class pwdValidator {
         String pwd3 = "pa$$word";
         boolean goodPassword = true;
 
-        do {
-            if(pwd1.length()< 8);
-                goodPassword = false;
-            if(pwd1.equalsIgnoreCase(oldPwd))
-                goodPassword = false;
-            }while(goodPassword);
 
+        if(pwd1.length()< 8){
+            goodPassword = false;
         }
-
-        if(goodPassword){
+        if(pwd1.contains(oldPwd)){
+            goodPassword = false;
+        }
+        if(pwd1.matches("[A-Za-z0-9*]")){
+            goodPassword = false;
+        }
+        if(goodPassword)
             System.out.println("Valid password. ");
-    }
+            else
+            System.out.println("Not Valid password. ");
+
     }
 
 }
