@@ -17,7 +17,7 @@ public class pwdValidator {
     }
     public static void main(String[] args) {
         var passwordChecker = loginProcess();
-        //printout password rules
+        passwordChecker.displayPasswordRules();
         var newPassword = passwordChecker.getNewPassword();
         passwordChecker.changePasswordCheck(newPassword);
         if(passwordChecker.goodPassword)
@@ -32,6 +32,10 @@ public class pwdValidator {
         System.out.println("Enter old password: ");
         String oldPassword = scanner.nextLine();
         return new pwdValidator(user, oldPassword);
+    }
+    public void displayPasswordRules(){
+        System.out.println("**** \n New password must include uppercase, 8+ chars. \n " +
+                "Password cannot be current password or contain username \n ****");
     }
     public String getNewPassword() {
         System.out.println("Enter new password. ");
