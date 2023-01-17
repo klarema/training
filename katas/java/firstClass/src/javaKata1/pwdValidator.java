@@ -17,13 +17,14 @@ public class pwdValidator {
     }
     public static void main(String[] args) {
         var passwordChecker = loginProcess();
-        passwordChecker.displayPasswordRules();
-        var newPassword = passwordChecker.getNewPassword();
-        passwordChecker.changePasswordCheck(newPassword);
-        if(passwordChecker.goodPassword)
-            System.out.println("Password = OK. ");
-        else
-            System.out.println("Password = Not accepted. ");
+        do {
+            passwordChecker.displayPasswordRules();
+            var newPassword = passwordChecker.getNewPassword();
+            passwordChecker.changePasswordCheck(newPassword);
+            if(!passwordChecker.goodPassword)
+                System.out.println("Password = Not accepted. ");
+        }while(!passwordChecker.goodPassword);
+        System.out.println("New Password = valid. Password changed. End.");
         scanner.close();
     }
     public static pwdValidator loginProcess() {
