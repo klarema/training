@@ -1,7 +1,7 @@
 package javaKata1;
 
 public class Banana extends Fruit{
-    private int calories = 70;
+    private int calories;
     public Banana(int calories){
         this.setCalories(calories);
     }
