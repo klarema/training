@@ -1,13 +1,15 @@
 package javaKata1;
 
 public class Banana extends Fruit{
-    private int calories;
-    public Banana(int calories){
-        this.setCalories(calories);
+    public Banana(){
+        setCalories(90);
     }
     @Override
     public void makeJuice(){
-        System.out.println("Banana juice is made");
+        System.out.print("Banana juice is made");
+    }
+    public void peel(){
+        System.out.println("Banana is peeled");
     }
 
 }

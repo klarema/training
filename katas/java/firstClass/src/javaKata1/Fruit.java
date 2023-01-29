@@ -6,7 +6,7 @@ public class Fruit {
 
     }
     public void makeJuice(){
-        System.out.println("Juice is made");
+        System.out.print("Juice is made");
     }
 
     public void setCalories(int calories) {
